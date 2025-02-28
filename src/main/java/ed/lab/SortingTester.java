@@ -7,38 +7,38 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SortingTester<T extends Comparable<T>> {
-    private static final int ARRAY_SIZE = 10;
-    private static final int TEST_SIZE = 1;
+    private static final int ARRAY_SIZE = 1000;
+    private static final int TEST_SIZE = 100;
 
     public void testSorting(ArrayGenerator<T> generator, QuickSort<T> quickSort) {
         T[] array = generator.generate(ARRAY_SIZE);
 
-        List<Duration> durations = new ArrayList<>(TEST_SIZE);
+        List<Long> durations = new ArrayList<>(TEST_SIZE);
 
         for (int i = 0; i < TEST_SIZE; i++) {
             T[] copy = Arrays.copyOf(array, array.length);
 
-            final LocalDateTime start = LocalDateTime.now();
+            long start = System.nanoTime(); // ⏱️ Inicio con nanoTime
 
             quickSort.sort(copy);
 
-            final LocalDateTime end = LocalDateTime.now();
-            durations.add(Duration.between(start, end));
+            long end = System.nanoTime(); // ⏱️ Fin con nanoTime
+            durations.add(end - start);
         }
 
-        // Cálculo del promedio usando Streams
+        // Calcular el promedio en milisegundos
         double average = durations.stream()
-                .mapToLong(Duration::toMillis)
+                .mapToLong(Long::longValue)
                 .average()
-                .orElse(0);
+                .orElse(0) / 1_000_000.0; // Convertir a ms
 
-        // Cálculo de la sumatoria total de las duraciones usando Streams
-        long total = durations.stream()
-                .mapToLong(Duration::toMillis)
-                .sum();
+        // Calcular el tiempo total en milisegundos
+        double total = durations.stream()
+                .mapToLong(Long::longValue)
+                .sum() / 1_000_000.0; // Convertir a ms
 
-        System.out.printf("\t\tTiempo promedio: %s ms\n", average);
-        System.out.printf("\t\tTiempo total: %d ms\n", total);
+        System.out.printf("\t\tTiempo promedio: %.3f ms\n", average);
+        System.out.printf("\t\tTiempo total: %.3f ms\n", total);
     }
 }
 
