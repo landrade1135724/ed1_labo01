@@ -1,16 +1,40 @@
 package ed.lab;
 
+import java.util.Random;
+
 public class Main {
-    private static final ArrayGenerator<Integer> sortedArrayGenerator = null; // Reemplácelo por una función lambda
 
-    private static final ArrayGenerator<Integer> invertedArrayGenerator = null; // Reemplácelo por una función lambda
+    // Generador que retorna un arreglo de Integer ordenado ascendentemente
+    private static final ArrayGenerator<Integer> sortedArrayGenerator = (int length) -> {
+        Integer[] array = new Integer[length];
+        for (int i = 0; i < length; i++) {
+            array[i] = i;
+        }
+        return array;
+    };
 
-    private static final ArrayGenerator<Integer> randomArrayGenerator = null; // Reemplácelo por una función lambda
+    // Generador que retorna un arreglo de Integer ordenado descendentemente
+    private static final ArrayGenerator<Integer> invertedArrayGenerator = (int length) -> {
+        Integer[] array = new Integer[length];
+        for (int i = 0; i < length; i++) {
+            array[i] = length - 1 - i;
+        }
+        return array;
+    };
 
+    // Generador que retorna un arreglo de Integer con valores aleatorios
+    private static final ArrayGenerator<Integer> randomArrayGenerator = (int length) -> {
+        Integer[] array = new Integer[length];
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            array[i] = random.nextInt(100);
+        }
+        return array;
+    };
+
+    // Las implementaciones de QuickSort siguen en null para ser reemplazadas posteriormente
     private static final QuickSort<Integer> highPivotQuickSort = null; // Reemplácelo por una referencia a un método
-
-    private static final QuickSort<Integer> lowPivotQuickSort = null; // Reemplácelo por una referencia a un método
-
+    private static final QuickSort<Integer> lowPivotQuickSort = null;  // Reemplácelo por una referencia a un método
     private static final QuickSort<Integer> randomPivotQuickSort = null; // Reemplácelo por una referencia a un método
 
     public static QuickSort<Integer> getHighPivotQuickSort() {
