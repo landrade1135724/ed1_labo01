@@ -4,65 +4,64 @@ import java.util.Random;
 
 public class Main {
 
-    // Generador que retorna un arreglo de Integer ordenado ascendentemente
-    private static final ArrayGenerator<Integer> sortedArrayGenerator = (int length) -> {
-        Integer[] array = new Integer[length];
+    // Generador que retorna un arreglo de String ordenado ascendentemente
+    private static final ArrayGenerator<String> sortedArrayGenerator = (int length) -> {
+        String[] array = new String[length];
         for (int i = 0; i < length; i++) {
-            array[i] = i;
+            array[i] = String.valueOf((char) ('A' + i)); // Genera letras de la A a la Z
         }
         return array;
     };
 
-    // Generador que retorna un arreglo de Integer ordenado descendentemente
-    private static final ArrayGenerator<Integer> invertedArrayGenerator = (int length) -> {
-        Integer[] array = new Integer[length];
+    // Generador que retorna un arreglo de String ordenado descendentemente
+    private static final ArrayGenerator<String> invertedArrayGenerator = (int length) -> {
+        String[] array = new String[length];
         for (int i = 0; i < length; i++) {
-            array[i] = length - 1 - i;
+            array[i] = String.valueOf((char) ('Z' - i)); // Genera letras de la Z a la A
         }
         return array;
     };
 
-    // Generador que retorna un arreglo de Integer con valores aleatorios
-    private static final ArrayGenerator<Integer> randomArrayGenerator = (int length) -> {
-        Integer[] array = new Integer[length];
+    // Generador que retorna un arreglo de String con valores aleatorios
+    private static final ArrayGenerator<String> randomArrayGenerator = (int length) -> {
+        String[] array = new String[length];
         Random random = new Random();
         for (int i = 0; i < length; i++) {
-            array[i] = random.nextInt(100);
+            array[i] = String.valueOf((char) ('A' + random.nextInt(26))); // Genera letras aleatorias
         }
         return array;
     };
 
-    // Las implementaciones de QuickSort siguen en null para ser reemplazadas posteriormente
-    private static final QuickSort<Integer> highPivotQuickSort = array-> SortingAlgorithms.highPivotQuickSort(array);
-    private static final QuickSort<Integer> lowPivotQuickSort = array->SortingAlgorithms.lowPivotQuickSort(array);
-    private static final QuickSort<Integer> randomPivotQuickSort = array->SortingAlgorithms.randomPivotQuickSort(array);
+    private static final QuickSort<String> highPivotQuickSort = array -> SortingAlgorithms.highPivotQuickSort(array);
+    private static final QuickSort<String> lowPivotQuickSort = array -> SortingAlgorithms.lowPivotQuickSort(array);
+    private static final QuickSort<String> randomPivotQuickSort = array -> SortingAlgorithms.randomPivotQuickSort(array);
 
-    public static QuickSort<Integer> getHighPivotQuickSort() {
+    public static QuickSort<String> getHighPivotQuickSort() {
         return highPivotQuickSort;
     }
 
-    public static QuickSort<Integer> getLowPivotQuickSort() {
+    public static QuickSort<String> getLowPivotQuickSort() {
         return lowPivotQuickSort;
     }
 
-    public static QuickSort<Integer> getRandomPivotQuickSort() {
+    public static QuickSort<String> getRandomPivotQuickSort() {
         return randomPivotQuickSort;
     }
 
-    public static ArrayGenerator<Integer> getSortedArrayGenerator() {
+    public static ArrayGenerator<String> getSortedArrayGenerator() {
         return sortedArrayGenerator;
     }
 
-    public static ArrayGenerator<Integer> getInvertedArrayGenerator() {
+    public static ArrayGenerator<String> getInvertedArrayGenerator() {
         return invertedArrayGenerator;
     }
 
-    public static ArrayGenerator<Integer> getRandomArrayGenerator() {
+    public static ArrayGenerator<String> getRandomArrayGenerator() {
         return randomArrayGenerator;
     }
 
     public static void main(String[] args) {
-        final SortingTester<Integer> tester = new SortingTester<>();
+        final SortingTester<String> tester = new SortingTester<>();
 
         System.out.println("Ordenando un arreglo ordenado:");
         System.out.println("\tUtilizando el último elemento como pivote: ");

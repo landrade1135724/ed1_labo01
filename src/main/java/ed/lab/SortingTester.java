@@ -18,28 +18,28 @@ public class SortingTester<T extends Comparable<T>> {
         for (int i = 0; i < TEST_SIZE; i++) {
             T[] copy = Arrays.copyOf(array, array.length);
 
-            long start = System.nanoTime(); // ⏱️ Inicio con nanoTime
+            // Usando System.nanoTime() para medición de tiempo
+            final long startTime = System.nanoTime();
 
             quickSort.sort(copy);
 
-            long end = System.nanoTime(); // ⏱️ Fin con nanoTime
-            durations.add(end - start);
+            final long endTime = System.nanoTime();
+            durations.add(endTime - startTime); // Guardamos la duración en nanosegundos
         }
 
-        // Calcular el promedio en milisegundos
+        // Cálculo del promedio en milisegundos
         double average = durations.stream()
-                .mapToLong(Long::longValue)
+                .mapToLong(duration -> duration) // No es necesario convertir a nanoTime en este punto
                 .average()
-                .orElse(0) / 1_000_000.0; // Convertir a ms
+                .orElse(0);
 
-        // Calcular el tiempo total en milisegundos
-        double total = durations.stream()
-                .mapToLong(Long::longValue)
-                .sum() / 1_000_000.0; // Convertir a ms
+        // Cálculo de la sumatoria total en milisegundos
+        long total = durations.stream()
+                .mapToLong(duration -> duration)
+                .sum();
 
-        System.out.printf("\t\tTiempo promedio: %.3f ms\n", average);
-        System.out.printf("\t\tTiempo total: %.3f ms\n", total);
+        System.out.printf("\t\tTiempo promedio: %.2f ms\n", average / 1_000_000.0);  // Convertimos a milisegundos
+        System.out.printf("\t\tTiempo total: %d ms\n", total / 1_000_000);  // Convertimos a milisegundos
     }
-}
 
-//Marc feo
+}
